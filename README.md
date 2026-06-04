@@ -1,1 +1,23 @@
 # ambient-population-crime-causal
+This repository contains all the code used for the paper "Ambient Populatio and Crime: The Fragility of Causal Links in Urban Environments" by Ariadna Albors Zumel, Michele Tizzoni, Wilson Hernández, and Gian Maria Campedelli.
+
+📄 You can find the full paper here:
+
+## Introduction
+The relationship between ambient population and crime has long been studied, with foundational theories offering competing mechanisms: increased pedestrian activity may enhance guardianship and informal surveillance, but also generate opportunities by increasing suitable targets. Yet, nearly all empirical evidence remains correlational, despite causal identification being essential for policy. We causally address this link using high-resolution smartphone-derived footfall data from Baltimore, Chicago, and Philadelphia (June 2023–June 2025), estimating a pipeline of increasingly rigorous models—from naïve baselines to fully instrumented two-stage residual inclusion specifications with distributed lags, two-way fixed effects, and spatial spillovers. The results are sobering: associations between ambient population and crime progressively vanish as endogeneity is addressed, and none survive correction for multiple testing. The few effects that do emerge are sensitive to crime type, temporal granularity, and neighborhood context. Our findings caution against universal claims linking foot traffic to crime and call for locally tailored, causally informed policy design.
+
+## Code structure
+
+### Preprocessing
+- crime_data:
+- mobility_data:
+- confounders_and_moderators_data:
+
+### Models
+- baseline:
+- model_2:
+- model_3:
+- model_4:
+- model_5:
+
+## Final causal model (Model 5)

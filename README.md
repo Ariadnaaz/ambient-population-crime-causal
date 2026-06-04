@@ -1,4 +1,4 @@
-a# ambient-population-crime-causal
+# ambient-population-crime-causal
 This repository contains all the code used for the paper "Ambient Populatio and Crime: The Fragility of Causal Links in Urban Environments" by Ariadna Albors Zumel, Michele Tizzoni, Wilson Hernández, and Gian Maria Campedelli.
 
 📄 You can find the full paper here:

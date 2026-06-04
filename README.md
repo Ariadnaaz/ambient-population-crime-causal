@@ -12,6 +12,8 @@ The relationship between ambient population and crime has long been studied, wit
 - crime_data:
   1. Download the data for each city ([Baltimore](https://data.baltimorecity.gov/datasets/baltimore::nibrs-group-a-crime-data/about), [Chicago](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data), and [Philadelphia](https://opendataphilly.org/datasets/crime-incidents/)) and put in the folder structure "raw_data/<city_name>".
   2. `1-generate_raw_datasets.py`:
+  3. `2-generate_selected_crimes_datasets.py`:
+  4. `3-generate_crimes_per_hex_dataset.py`:
 - mobility_data:
 - confounders_and_moderators_data:
 

@@ -1,4 +1,4 @@
-# ambient-population-crime-causal
+a# ambient-population-crime-causal
 This repository contains all the code used for the paper "Ambient Populatio and Crime: The Fragility of Causal Links in Urban Environments" by Ariadna Albors Zumel, Michele Tizzoni, Wilson Hernández, and Gian Maria Campedelli.
 
 📄 You can find the full paper here:
@@ -10,7 +10,8 @@ The relationship between ambient population and crime has long been studied, wit
 
 ### Preprocessing
 - crime_data:
-  1. Download the data for each city ([Baltimore](https://data.baltimorecity.gov/datasets/baltimore::nibrs-group-a-crime-data/about), [Chicago](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data), and [Philadelphia](https://opendataphilly.org/datasets/crime-incidents/)) and put in the folder structure "Preprocessing_raw_data_per_city/<city_name>/raw_data".
+  1. Download the data for each city ([Baltimore](https://data.baltimorecity.gov/datasets/baltimore::nibrs-group-a-crime-data/about), [Chicago](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data), and [Philadelphia](https://opendataphilly.org/datasets/crime-incidents/)) and put in the folder structure "raw_data/<city_name>".
+  2. `1-generate_raw_datasets.py`:
 - mobility_data:
 - confounders_and_moderators_data:
 

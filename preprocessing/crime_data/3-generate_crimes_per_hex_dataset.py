@@ -27,7 +27,7 @@ def generate_crime_files_with_grid_num(city_name,city_folder,crimes_list):
 
   # load hexagonal polygons
   df_poly = pd.read_csv(f'../confounders_and_moderators_data/{city_folder}_sociodem_hex.csv',index_col=0)
-  # Convert WKT strings into shapely geometries
+  # convert WKT strings into shapely geometries
   df_poly["polygon"] = df_poly["polygon"].apply(wkt.loads)
 
   # generate file for each crime
@@ -45,9 +45,9 @@ def generate_crime_files_with_grid_num(city_name,city_folder,crimes_list):
     df_final.to_csv(f'{city_folder}_{crime}_clean_all_grid.csv')
     print("Final dataset saved!\n")
 
-#generate_crime_files_with_grid_num(city_name = 'Baltimore',
-#                                   city_folder = 'Baltimore',
-#                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery', 'Homicide']) #
+generate_crime_files_with_grid_num(city_name = 'Baltimore',
+                                   city_folder = 'Baltimore',
+                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery', 'Homicide']) #
 
 generate_crime_files_with_grid_num(city_name = 'Chicago',
                                    city_folder = 'Chicago',
@@ -69,7 +69,7 @@ def hour_of_year(dt):
 def make_final_grid_files_year_crime(city_folder, crime, years):
     print("City: ", city_folder)
 
-    # Load all crimes for the city and crime type
+    # load all crimes for the city and crime type
     df_crimes = pd.read_csv(
         f'{city_folder}_{crime}_clean_all_grid.csv',
         index_col=0,
@@ -78,23 +78,23 @@ def make_final_grid_files_year_crime(city_folder, crime, years):
     )
     print("Shape whole dataset: ", df_crimes.shape)
 
-    # Precompute hour of the year for all crimes
+    # precompute hour of the year for all crimes
     df_crimes['hour_year'] = df_crimes['crime_date_time'].apply(hour_of_year)
 
     for y in years:
         print("YEAR: ", y)
         df_year = df_crimes[df_crimes['crime_date_time'].dt.year == y].copy()
 
-        # Keep only necessary columns
+        # keep only necessary columns
         df_year = df_year[['hex', 'hour_year']]
 
-        # Drop missing hexes and ensure hex IDs are strings
+        # drop missing hexes and ensure hex IDs are strings
         df_year = df_year[df_year['hex'].notna()]
         df_year['hex'] = df_year['hex'].astype(str)
 
         print("Shape for this year after cleaning: ", df_year.shape)
 
-        # Number of hours in the year
+        # number of hours in the year
         num_hours_total = int(((datetime.datetime(y+1,1,1) - datetime.datetime(y,1,1)).total_seconds()) // 3600)
 
         hexes = df_year['hex'].values
@@ -102,23 +102,24 @@ def make_final_grid_files_year_crime(city_folder, crime, years):
         unique_hexes = np.unique(hexes)
         hex_to_idx = {h: i for i, h in enumerate(unique_hexes)}
 
-        # Create sparse matrix (rows = hexes, columns = hours)
+        # create sparse matrix (rows = hexes, columns = hours)
         mat = lil_matrix((len(unique_hexes), num_hours_total), dtype=int)
         for h, hr in zip(hexes, hours):
             mat[hex_to_idx[h], hr] += 1
 
-        # Convert to DataFrame exactly like your old version
+        # convert to DataFrame exactly like your old version
         df_final = pd.DataFrame(mat.toarray(), index=unique_hexes, columns=list(range(num_hours_total)))
         df_final.index.name = 'hex'
 
-        # Save CSV
+        # save CSV
         df_final.to_csv(f'{city_folder}_{crime}_{y}_final_grid.csv')
         print("Final dataset saved for year", y)
 
-        # Free memory
+        # free memory
         del df_year, mat, df_final
         gc.collect()
 
+# make final grid files for each city, year, and crime type
 for city in ['Baltimore','Chicago','Philadelphia']:
     for crime in ['Burglary', 'Robbery', 'Homicide','Motor Vehicle Theft', 'Assault']:
         make_final_grid_files_year_crime(city_folder=city,crime=crime,years=[2023,2024,2025])

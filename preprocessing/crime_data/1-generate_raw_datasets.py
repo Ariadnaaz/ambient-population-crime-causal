@@ -63,7 +63,7 @@ print("Shape dataframe after selecting crimes from 30th June 2023 to 29th June 2
 
 # remove points that are outside the city borders
 # extract multipolygon of the city
-gdf = extract_multipolygon_city(file_path='city_multipolygons.geojson',city_name='Baltimore')
+gdf = extract_multipolygon_city(file_path='../../city_multipolygons.geojson',city_name='Baltimore')
 
 # remove points that aren't within the multipolygon
 df_clean = df_filter.copy()
@@ -104,7 +104,7 @@ print("Shape dataframe after selecting crimes from 30th June 2023 to 29th June 2
 df_years.reset_index(drop=True,inplace=True)
 
 # extract multipolygon of the city
-gdf = extract_multipolygon_city(file_path='city_multipolygons.geojson',city_name='Chicago')
+gdf = extract_multipolygon_city(file_path='../../city_multipolygons.geojson',city_name='Chicago')
 
 # remove points that aren't within the multipolygon
 df_clean = df_years.copy()
@@ -148,7 +148,7 @@ df = df[['crime_date_time','crime_type','latitude','longitude']]
 
 # remove points that are outside the city borders
 # extract multipolygon of the city
-gdf = extract_multipolygon_city(file_path='city_multipolygons.geojson',city_name='Philadelphia')
+gdf = extract_multipolygon_city(file_path='../../city_multipolygons.geojson',city_name='Philadelphia')
 
 # remove points that aren't within the multipolygon
 #df.reset_index(drop=True,inplace=True)

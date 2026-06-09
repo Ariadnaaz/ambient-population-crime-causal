@@ -33,3 +33,4 @@ The relationship between ambient population and crime has long been studied, wit
 - model_5:
 
 ## Structure of the final causal model using 2SRI (Model 5)
+![Model equation](model5.png)

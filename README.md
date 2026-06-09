@@ -15,7 +15,12 @@ The relationship between ambient population and crime has long been studied, wit
   3. `2-generate_selected_crimes_datasets.py`:
   4. `3-generate_crimes_per_hex_dataset.py`:
 - mobility_data:
-- confounders_and_moderators_data:
+- confounders_and_moderators_datasets:
+  - `Holidays_<city>.csv`:
+  - `<city>_sport_events.csv`:
+  - `<city>_extra_events.csv`:
+  - `<city>_mobility_hex.csv`:
+  - `<city>_sociodem_hex.csv`:
 
 ### Models
 - baseline:
@@ -24,4 +29,4 @@ The relationship between ambient population and crime has long been studied, wit
 - model_4:
 - model_5:
 
-## Final causal model (Model 5)
+## Structure of the final causal model using 2SRI (Model 5)

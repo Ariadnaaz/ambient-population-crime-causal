@@ -15,6 +15,9 @@ The relationship between ambient population and crime has long been studied, wit
   3. `2-generate_selected_crimes_datasets.py`:
   4. `3-generate_crimes_per_hex_dataset.py`:
 - mobility_data:
+  1. `0-download_data.py`:
+  2. `1-preprocess_mobility_data.py`:
+  3. `2-get_mobility-data_per_hex.py`:
 - confounders_and_moderators_datasets:
   - `Holidays_<city>.csv`:
   - `<city>_sport_events.csv`:

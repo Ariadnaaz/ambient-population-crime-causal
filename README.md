@@ -33,4 +33,6 @@ The relationship between ambient population and crime has long been studied, wit
 - model_5:
 
 ## Structure of the final causal model using 2SRI (Model 5)
-![Model equation](model5.png)
+Our causal model is a 2SRI model with fixed effects, covariates, distributed lags, and spillover effects using a modified spatial Durbin term:
+![Model equation](model5.jpg)
+where $\alpha_i$ is the hexagon fixed effects, $\delta_t$ represents the time fixed effects, $\rho$ is the spatial autoregressive coefficient that measures how strongly neighboring hexagons' past expected log crime counts influence hexagon $i$'s own expected log crime count, the parameter $\mathbf{W}\in \\{0,1\\}^{n\times n}$ is the spatial weights matrix, where $n$ is the total number of hexagons, the coefficient $\beta_0$ is interpreted as the immediate effect of footfall in hexagon $i$ on the log of the expected crime count, the sum $\sum_{k=0}^q\beta_k$ represents the long-run cumulative effect of footfall in hexagon $i$ on the log of the expected crime count, the coefficients $\theta_k$ measure the impact of neighboring footfall on the current hexagon's expected log crime count at lag $k$, the term $\gamma X_{i,t}$ is the time-varying covariates not captured by the fixed effects, and $\hat{u}_{j,i,t}$ are the residuals for the three endogenous variables incorporated as part of the 2SRI model in order to correct for endogeneity.

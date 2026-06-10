@@ -30,7 +30,13 @@ The relationship between ambient population and crime has long been studied, wit
 - `model2_pyfixest_6h.py`:
 - `model3_pyfixest_6h.py`:
 - `model4_pyfixest_6h.py`:
-- model_5:
+- 2SRI:
+  - `model5_pyfixest_1h.py`:
+  - `model5_pyfixest_3h.py`:
+  - `model5_pyfixest_12h.py`:
+  - `model5_pyfixest_6h.py`:
+  - `model5_pyfixest_6h_hex_scaling.py`:
+  - `model5_pyfixest_6h_heterogeneity.py`:  
 
 ## Structure of the final causal model using 2SRI (Model 5)
 Our causal model is a 2SRI model with fixed effects, covariates, distributed lags, and spillover effects using a modified spatial Durbin term:

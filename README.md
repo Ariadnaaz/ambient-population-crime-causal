@@ -26,10 +26,10 @@ The relationship between ambient population and crime has long been studied, wit
   - `<city>_sociodem_hex.csv`:
 
 ### Models
-- baseline:
-- model_2:
-- model_3:
-- model_4:
+- `baseline_model_pyfixest_6h.py`:
+- `model2_pyfixest_6h.py`:
+- `model3_pyfixest_6h.py`:
+- `model4_pyfixest_6h.py`:
 - model_5:
 
 ## Structure of the final causal model using 2SRI (Model 5)

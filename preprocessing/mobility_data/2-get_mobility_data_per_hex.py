@@ -3,7 +3,6 @@ import pandas as pd
 import geopandas as gpd
 import pickle
 import osmnx as ox
-import shapely
 import h3
 import os
 import datetime

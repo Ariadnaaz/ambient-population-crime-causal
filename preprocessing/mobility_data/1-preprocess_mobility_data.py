@@ -22,7 +22,7 @@ def generate_mondays(start_date, end_date):
 
 # generate the expected dates
 start_date = datetime.datetime(2023, 6, 26)
-end_date = datetime.datetime(2026, 6, 29)
+end_date = datetime.datetime(2025, 6, 29)
 mondays = generate_mondays(start_date, end_date)
 dates_str = set(date.strftime('%Y-%m-%d') for date in mondays)
 print("dates str: ",dates_str)
@@ -64,11 +64,6 @@ def process_file(file_name):
     except (gzip.BadGzipFile, pd.errors.EmptyDataError) as e:
         print(f"Error processing file {file_name}: {e}")
         return None
-
-def get_iso_week_count(year):
-    # ISO week numbering: the last week of the year is the one that contains the last Thursday
-    last_day = datetime.date(year, 12, 28)  # Always in the last ISO week
-    return last_day.isocalendar()[1]
 
 # function to process files for a week
 def process_week(week,year):
@@ -124,7 +119,7 @@ for i in range(1, 53):
     process_week(week=i, year=year)
     print("\n")
 
-# get weekly files first half of 2025
+# get weekly files for the first half of 2025
 year = 2025
 for i in range(1, 27):
     process_week(week=i, year=year)

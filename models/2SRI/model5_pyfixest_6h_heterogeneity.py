@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import pyfixest as pf
 from joblib import Parallel, delayed
-import sys
 import gc
 from scipy.stats import norm
 import argparse
@@ -17,8 +16,8 @@ def single_bootstrap_iteration(
     formula2,
     seed
 ):
-    # parallelized cluster bootstrap function
-    np.random.seed(seed + b)
+    # unique seed per iteration
+    np.random.seed(seed + b) 
 
     try:
         # sample clusters with replacement
@@ -280,8 +279,7 @@ def generate_regression_results_heterogeneity(
 
             del df_crime, df_footfall
             gc.collect()
-
-            # create interaction terms (only for footfall_lag0)
+            
             # interaction for footfall_lag0 only
             df["footfall_lag0_X_high"] = df["footfall_lag0"] * df["high_group"]
 
@@ -292,6 +290,7 @@ def generate_regression_results_heterogeneity(
             df.dropna(inplace=True)
 
             df["six_hour_block"] = df["datetime"].dt.hour // 6
+            # set to category bc they use less memory
             df["day_of_week"] = df["datetime"].dt.weekday.astype("category")
             df["month"] = df["datetime"].dt.month.astype("category")
             df["year"] = df["datetime"].dt.year.astype("category")
@@ -489,7 +488,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     print(f"Running with cities={args.cities} and crime_types={args.crime_types}")
-    # put the corresponding variable given the file namme
+    # put the corresponding variable given the file name
     for het_var in ["Percent_single_parent_houshold"]: #  "poi_diversity","night_businesses_proportion?", "Median_household_income", "Percent_occupied_housing_units", "Percent_unemployed", "Ethnic_diversity"
         generate_regression_results_heterogeneity(
             lags=[0, 1, 2],

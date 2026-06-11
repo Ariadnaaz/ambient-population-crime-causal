@@ -1,6 +1,4 @@
 import pandas as pd
-from shapely import wkt
-import geopandas as gpd
 
 """## Generate final hex list by keeping hex common both in soc and mob datasets"""
 

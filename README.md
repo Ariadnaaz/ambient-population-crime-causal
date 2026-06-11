@@ -1,5 +1,5 @@
 # ambient-population-crime-causal
-This repository contains all the code used for the paper "Ambient Populatio and Crime: The Fragility of Causal Links in Urban Environments" by Ariadna Albors Zumel, Michele Tizzoni, Wilson Hernández, and Gian Maria Campedelli.
+This repository contains all the code used for the paper "Ambient Population and Crime: The Fragility of Causal Links in Urban Environments" by Ariadna Albors Zumel, Michele Tizzoni, Wilson Hernández, and Gian Maria Campedelli.
 
 📄 You can find the full paper here:
 
@@ -24,6 +24,10 @@ The relationship between ambient population and crime has long been studied, wit
   - `<city>_extra_events.csv`:
   - `<city>_mobility_hex.csv`:
   - `<city>_sociodem_hex.csv`:
+- hexagons_list:
+  - `<city>_hex_list.csv`:
+- W_matrix:
+  - `<city>_W_matrix.npy`:
 
 ### Models
 - `baseline_model_pyfixest_6h.py`:

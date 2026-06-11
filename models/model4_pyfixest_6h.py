@@ -2,26 +2,24 @@
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
 import gc
 import pyfixest as pf
 
 """## 6 hours"""
 
-def load_city_data(city_folder, crime_types): # model_years
+def load_city_data(city_folder, crime_types): 
 
     # load footfall data
     df_footfall = pd.read_csv(f"../preprocessing/mobility_data/final_data/{city_folder}_mobility_footfall_hex.csv",index_col=0)
 
-    # Load and merge all crime types for the city
+    # load and merge all crime types for the city
     dfs = []
     for crime in crime_types:
         df_crime = pd.read_csv(f"../preprocessing/crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)
         dfs.append(df_crime)
 
-    df_crimes = sum(dfs)  # merge all crimes
+    # merge all crimes
+    df_crimes = sum(dfs)  
 
     # load hex list
     hex_df = pd.read_csv(f'../preprocessing/hexagons_list/{city_folder}_hex_list.csv',index_col=0)
@@ -163,7 +161,7 @@ def generate_regression_results_model4(lags, cities, model_name, crime_types, co
                  # compute leads of footfall and spatial leads footfall
                 df[f'footfall_lead1'] = df.groupby("hex_id")["footfall"].shift(-1)
 
-                # spatial lag: (W * Footfall_{t-k})_i
+                # spatial lead: (W * Footfall_{t-k})_i
                 ff_mat = df_footfall.shift(-1).to_numpy() # shape: (n_timesteps, n_hexes)
                 W_ff = W @ ff_mat.T  # matrix multiplication shape: (n_hexes, n_timesteps)
                 result = W_ff.T.flatten(order='C')

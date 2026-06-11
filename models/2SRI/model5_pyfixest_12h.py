@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import pyfixest as pf
 from joblib import Parallel, delayed
-import sys
 import gc
 from scipy.stats import norm
 import argparse
@@ -237,8 +236,8 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
 
             df.dropna(inplace=True)
 
-            # set to category bc they use less memory
             df["twelve_hour_block"] = df["datetime"].dt.hour // 12 # so twelve_hour_block ∈ {0,1}
+            # set to category bc they use less memory
             df["day_of_week"] = df["datetime"].dt.weekday.astype("category")
             df["month"] = df["datetime"].dt.month.astype("category")
             df["year"] = df["datetime"].dt.year.astype("category")
@@ -285,7 +284,7 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
             print(model2.summary())
 
             # get original coefficients for bootstrap
-            original_coefs = model2.coef() #.to_dict()
+            original_coefs = model2.coef() 
 
             # parallelized bootstrap
             print("Running PARALLELIZED 2-stage cluster bootstrap...")

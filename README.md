@@ -44,7 +44,7 @@ The relationship between ambient population and crime has long been studied, wit
   - `model5_pyfixest_6h_hex_scaling.py`:  It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 6h granularity. Moreover, it does a hexagon-level sample correction instead of the city-level sample correction.
   - `model5_pyfixest_6h_heterogeneity.py`: It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 6h granularity. Moreover, it uses a median split over 7 moderating variables (2 POI-related and 5 sociodemographic) to test heterogeneity.
  
-The package requirements can be found in the file requirements.txt and everything was developed and executed using Python 3.12.12.
+The package requirements can be found in the file `requirements.txt` and everything was developed and executed using Python 3.12.12.
 
 ## Structure of the final causal model using 2SRI (Model 5)
 Our causal model is a 2SRI model with fixed effects, covariates, distributed lags, and spillover effects using a modified spatial Durbin term:

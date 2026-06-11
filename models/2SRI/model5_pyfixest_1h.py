@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 import pyfixest as pf
 from joblib import Parallel, delayed
-import sys
 import gc
-from scipy.stats import norm
 
 # parallelized cluster bootstrap function
 def single_bootstrap_iteration(
@@ -144,11 +142,11 @@ def load_covariates(city):
         index_col=0, parse_dates=True
     )
     df_holidays = pd.read_csv(
-        f"./confounders_and_moderators_datasets/Holidays_{city}.csv",
+        f"../confounders_and_moderators_datasets/Holidays_{city}.csv",
         index_col=0, parse_dates=True
     )
     df_extras = pd.read_csv(
-        f"./confounders_and_moderators_datasets/{city}_extra_events.csv",
+        f"../confounders_and_moderators_datasets/{city}_extra_events.csv",
         index_col=0, parse_dates=True
     )
     return expand_daily_to_hourly(df_sports), expand_daily_to_hourly(df_holidays), expand_daily_to_hourly(df_extras)
@@ -286,10 +284,10 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
             model2 = pf.fepois(formula2, data=df, vcov={"CRV1": "hex_id"})
             print(model2.summary())
 
-            # get original coefficients from boostrap
+            # get original coefficients for boostrap
             original_coefs = model2.coef()
 
-            # parallelized boostrap
+            # parallelized bootstrap
             print("Running PARALLELIZED 2-stage cluster bootstrap...")
             boot_se, boot_p_v2, ci = full_2stage_cluster_bootstrap(
                 df=df,

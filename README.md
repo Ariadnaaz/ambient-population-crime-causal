@@ -25,11 +25,11 @@ The relationship between ambient population and crime has long been studied, wit
   - `<city>_mobility_hex.csv`:
   - `<city>_sociodem_hex.csv`:
 - hexagons_list:
-  - `get_final_hex_list.py`: 
-  - `<city>_hex_list.csv`:
+  - `get_final_hex_list.py`: It finds the hexagons present in both the mobility and sociodemographic datasets for each city, reports the mismatches, and saves a CSV of the common hexagons (with their polygon geometry) as the city's final hex list.
+  - `<city>_hex_list.csv`: A CSV mapping every retained H3 hexagon (identified by its hex_index) to its boundary geometry as a WKT polygon for each city.
 - W_matrix:
-  - `make_W_matrix.py`:
-  - `<city>_W_matrix.npy`:
+  - `make_W_matrix.py`: It loads the final hex list, builds a Queen-contiguity spatial weights matrix over the hexagons (neighbors sharing a border or vertex), row-standardizes it so each row sums to one, and saves the resulting dense W matrix as a .npy file for use in spatial-lag/spillover terms.
+  - `<city>_W_matrix.npy`: A dense, row-standardized spatial weights (Queen-contiguity) matrix stored as a NumPy array of shape (n_hexagons × n_hexagons) for each city.
 
 ### Models
 - `baseline_model_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates crime models (Negative Binomial or Poisson) to quantify the effect of contemporaneous footfall on crime across different crime types.

@@ -233,8 +233,8 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
 
             df.dropna(inplace=True)
 
-            # set to category bc they use less memory
             df["three_hour_block"] = df["datetime"].dt.hour // 3
+            # set to category bc they use less memory
             df["day_of_week"] = df["datetime"].dt.weekday.astype("category")
             df["month"] = df["datetime"].dt.month.astype("category")
             df["year"] = df["datetime"].dt.year.astype("category")

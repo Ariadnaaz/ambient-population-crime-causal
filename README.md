@@ -37,12 +37,12 @@ The relationship between ambient population and crime has long been studied, wit
 - `model3_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates the expected crime counts using a Poisson model with hexagon fixed-effects, several time fixed effects, three covariates, and the hexagon's footfall lags across different crime types.
 - `model4_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates the expected crime counts using a Poisson model with hexagon fixed-effects, several time fixed effects, three covariates, the hexagon's footfall lags, and spillover effects from neighboring hexagons across different crime counts.
 - 2SRI:
-  - `model5_pyfixest_1h.py`:
-  - `model5_pyfixest_3h.py`:
-  - `model5_pyfixest_12h.py`:
-  - `model5_pyfixest_6h.py`:
-  - `model5_pyfixest_6h_hex_scaling.py`:
-  - `model5_pyfixest_6h_heterogeneity.py`:  
+  - `model5_pyfixest_1h.py`: It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 1h granularity.
+  - `model5_pyfixest_3h.py`: It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 3h granularity.
+  - `model5_pyfixest_12h.py`: It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 12h granularity.
+  - `model5_pyfixest_6h.py`: It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 6h granularity.
+  - `model5_pyfixest_6h_hex_scaling.py`:  It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 6h granularity. Moreover, it does a hexagon-level sample correction instead of the city-level sample correction.
+  - `model5_pyfixest_6h_heterogeneity.py`: It takes Model 4 and uses the 2SRI structure to correct for endogeneity, using 6h granularity. Moreover, it uses a median split over 7 moderating variables (2 POI-related and 5 sociodemographic) to test heterogeneity.
 
 ## Structure of the final causal model using 2SRI (Model 5)
 Our causal model is a 2SRI model with fixed effects, covariates, distributed lags, and spillover effects using a modified spatial Durbin term:

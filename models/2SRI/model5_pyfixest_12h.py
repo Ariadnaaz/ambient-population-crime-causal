@@ -342,7 +342,7 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
 
             city_results_df = pd.DataFrame(city_results)
             city_results_df.to_csv(
-                f"../results/Model_with_2SRI/{city}_Pfixest_{model_name}_{crime_str}_12H_N{n_jobs}_B{B}_FF{footfall_factor}.csv",
+                f"results/Model_with_2SRI/{city}_Pfixest_{model_name}_{crime_str}_12H_N{n_jobs}_B{B}_FF{footfall_factor}.csv",
                 index=False
             )
 

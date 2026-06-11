@@ -19,11 +19,11 @@ The relationship between ambient population and crime has long been studied, wit
   2. `1-preprocess_mobility_data.py`: It processes weekly Advan mobility pattern files, extracts the POIs located in Baltimore, Chicago, and Philadelphia, converts hourly visit counts into 168 hourly features per week, and saves one cleaned mobility dataset for each study week between June 2023 and June 2025.
   3. `2-get_mobility-data_per_hex.py`: It builds a city-level hexagonal spatial grid, maps the POIs to hex cells, aggregates the weekly Advan visit data into hourly footfall per hexagon, and merges yearly outputs into a unified spatiotemporal mobility dataset for Baltimore, Chicago, and Philadelphia.
 - confounders_and_moderators_datasets:
-  - `Holidays_<city>.csv`:
-  - `<city>_sport_events.csv`:
-  - `<city>_extra_events.csv`:
-  - `<city>_mobility_hex.csv`:
-  - `<city>_sociodem_hex.csv`:
+  - `Holidays_<city>.csv`: A daily time series spanning our study period, with one row per calendar date and a boolean is_holiday flag marking U.S. federal/public holidays as True and all other days as False for each city.
+  - `<city>_sport_events.csv`: A daily time series spanning our study period, with one row per calendar date and a boolean Sport_event flag set to True on days when the city hosted a major (home game) sporting event and False otherwise for each city.
+  - `<city>_extra_events.csv`: A daily time series spanning our study period, with one row per calendar date and a boolean Event flag set to True on days when the city held other events with massive attendance (such as festivals or concerts) and False otherwise for each city.
+  - `<city>_mobility_hex.csv`: A hex-level moderator file with one row per H3 hexagon (hex_index), containing the two POI-derived neighborhood characteristics used in the heterogeneity analysis for each city.
+  - `<city>_sociodem_hex.csv`:  A hex-level moderator file with one row per H3 hexagon (hex_index), containing the five sociodemographic-derived neighborhood characteristics used in the heterogeneity analysis for each city.
 - hexagons_list:
   - `get_final_hex_list.py`: It finds the hexagons present in both the mobility and sociodemographic datasets for each city, reports the mismatches, and saves a CSV of the common hexagons (with their polygon geometry) as the city's final hex list.
   - `<city>_hex_list.csv`: A CSV mapping every retained H3 hexagon (identified by its hex_index) to its boundary geometry as a WKT polygon for each city.

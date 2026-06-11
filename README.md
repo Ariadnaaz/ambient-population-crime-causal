@@ -11,13 +11,13 @@ The relationship between ambient population and crime has long been studied, wit
 ### Preprocessing
 - crime_data:
   1. Download the data for each city ([Baltimore](https://data.baltimorecity.gov/datasets/baltimore::nibrs-group-a-crime-data/about), [Chicago](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data), and [Philadelphia](https://opendataphilly.org/datasets/crime-incidents/)) and put in the folder structure "raw_data/<city_name>".
-  2. `1-generate_raw_datasets.py`:
-  3. `2-generate_selected_crimes_datasets.py`:
-  4. `3-generate_crimes_per_hex_dataset.py`:
+  2. `1-generate_raw_datasets.py`: It loads the raw crime datasets for Baltimore, Chicago, and Philadelphia, standardizes their formats, filters incidents to the two-year period (30 June 2023–29 June 2025), removes crime records located outside each city's official boundary polygon, and saves the cleaned datasets.
+  3. `2-generate_selected_crimes_datasets.py`: It loads the cleaned crime datasets for Baltimore, Chicago, and Philadelphia, selects a common set of violent and property crime types, harmonizes crime labels across cities, and saves the standardized datasets.
+  4. `3-generate_crimes_per_hex_dataset.py`: It assigns each crime event to a hexagonal spatial cell, aggregates crime counts by hexagon and hour for each year, and then combines yearly matrices into final spatiotemporal crime grids covering the study period.
 - mobility_data:
-  1. `0-download_data.py`:
-  2. `1-preprocess_mobility_data.py`:
-  3. `2-get_mobility-data_per_hex.py`:
+  1. `0-download_data.py`: It uses deweydatapy package to retrieve metadata for the Weekly Patterns dataset of Advan, identifies all files available between June 2023 and July 2025, and downloads those files to a local directory.
+  2. `1-preprocess_mobility_data.py`: It processes weekly Advan mobility pattern files, extracts the POIs located in Baltimore, Chicago, and Philadelphia, converts hourly visit counts into 168 hourly features per week, and saves one cleaned mobility dataset for each study week between June 2023 and June 2025.
+  3. `2-get_mobility-data_per_hex.py`: It builds a city-level hexagonal spatial grid, maps the POIs to hex cells, aggregates the weekly Advan visit data into hourly footfall per hexagon, and merges yearly outputs into a unified spatiotemporal mobility dataset for Baltimore, Chicago, and Philadelphia.
 - confounders_and_moderators_datasets:
   - `Holidays_<city>.csv`:
   - `<city>_sport_events.csv`:
@@ -25,17 +25,17 @@ The relationship between ambient population and crime has long been studied, wit
   - `<city>_mobility_hex.csv`:
   - `<city>_sociodem_hex.csv`:
 - hexagons_list:
-  - `get_final_hex_list.py`:
+  - `get_final_hex_list.py`: 
   - `<city>_hex_list.csv`:
 - W_matrix:
   - `make_W_matrix.py`:
   - `<city>_W_matrix.npy`:
 
 ### Models
-- `baseline_model_pyfixest_6h.py`:
-- `model2_pyfixest_6h.py`:
-- `model3_pyfixest_6h.py`:
-- `model4_pyfixest_6h.py`:
+- `baseline_model_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates crime models (Negative Binomial or Poisson) to quantify the effect of contemporaneous footfall on crime across different crime types.
+- `model2_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates the expected crime counts using a Poisson model with temporally lagged footfall across different crime types.
+- `model3_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates the expected crime counts using a Poisson model with hexagon fixed-effects, several time fixed effects, three covariates, and the hexagon's footfall lags across different crime types.
+- `model4_pyfixest_6h.py`: It builds a hexagon–time panel dataset of crime and footfall at 6-hour resolution, and estimates the expected crime counts using a Poisson model with hexagon fixed-effects, several time fixed effects, three covariates, the hexagon's footfall lags, and spillover effects from neighboring hexagons across different crime counts.
 - 2SRI:
   - `model5_pyfixest_1h.py`:
   - `model5_pyfixest_3h.py`:

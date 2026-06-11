@@ -7,7 +7,7 @@ import gc
 
 """## 6 hours"""
 
-def load_city_data(city_folder, crime_types): # model_years
+def load_city_data(city_folder, crime_types): 
 
     # load footfall data
     df_footfall = pd.read_csv(f"../preprocessing/mobility_data/final_data/{city_folder}_mobility_footfall_hex.csv",index_col=0)

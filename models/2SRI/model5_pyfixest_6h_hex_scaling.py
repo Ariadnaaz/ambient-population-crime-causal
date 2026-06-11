@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import pyfixest as pf
 from joblib import Parallel, delayed
-import sys
 import gc
 from scipy.stats import norm
 
@@ -241,8 +240,8 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
 
             df.dropna(inplace=True)
 
-            # set to category bc they use less memory
             df["six_hour_block"] = df["datetime"].dt.hour // 6 # so six_hour_block ∈ {0,1,2,3}
+            # set to category bc they use less memory
             df["day_of_week"] = df["datetime"].dt.weekday.astype("category")
             df["month"] = df["datetime"].dt.month.astype("category")
             df["year"] = df["datetime"].dt.year.astype("category")
@@ -289,10 +288,6 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
             f_results['footfall_lag0'] = model1_lag0.wald_test(R=R_lag0)
             f_results['W_footfall_lag0'] = model1_Wlag0.wald_test(R=R_Wlag0)
             f_results['W_crime_lag1'] = model1_WCrime.wald_test(R=R_Wcrime)
-
-            # print results - first check what the output looks like
-            print("Output format check:", f_results['footfall_lag0'])
-            print("Index:", f_results['footfall_lag0'].index.tolist())
 
             for endog_var, result in f_results.items():
                 f_stat = result['statistic']

@@ -1,10 +1,6 @@
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 import geopandas as gpd
 from shapely.geometry import Point
-import matplotlib.pyplot as plt
-from statistics import mean
 
 """## Useful functions"""
 
@@ -119,7 +115,7 @@ df_clean.reset_index(drop=True,inplace=True)
 
 # save final dataset
 df_clean.to_csv("raw_data/Chicago/Chicago_crimes_clean_all_2y.csv")
-print("Shape final dataframe: ", df_clean.shape) # takes around 57 min to run
+print("Shape final dataframe: ", df_clean.shape) 
 
 """### Philadelphia"""
 # load raw datasets
@@ -151,7 +147,6 @@ df = df[['crime_date_time','crime_type','latitude','longitude']]
 gdf = extract_multipolygon_city(file_path='../../city_multipolygons.geojson',city_name='Philadelphia')
 
 # remove points that aren't within the multipolygon
-#df.reset_index(drop=True,inplace=True)
 df.reset_index(drop=True,inplace=True)
 df_clean = df.copy()
 for i, entry in df.iterrows():

@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 import pyfixest as pf
 from joblib import Parallel, delayed
-import sys
 import gc
-from scipy.stats import norm
 import argparse
 
 # parallelized cluster bootstrap function
@@ -93,16 +91,16 @@ def full_2stage_cluster_bootstrap(
     return boot_se, boot_p_v2, ci
 
 def load_city_data(city_folder, crime_types):
-    df_footfall = pd.read_csv(f"./Mobility_data/{city_folder}_mobility_footfall_hex.csv", index_col=0)
+    df_footfall = pd.read_csv(f"../preprocessing/mobility_data/final_data/{city_folder}_mobility_footfall_hex.csv", index_col=0)
 
     dfs = []
     for crime in crime_types:
-        df_crime = pd.read_csv(f"./Crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)
+        df_crime = pd.read_csv(f"../preprocessing/crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)
         dfs.append(df_crime)
 
     df_crimes = sum(dfs)
 
-    hex_df = pd.read_csv(f'./Hexagons_list/{city_folder}_hex_list.csv', index_col=0)
+    hex_df = pd.read_csv(f'../preprocessing/hexagons_list/{city_folder}_hex_list.csv', index_col=0)
     original_hex_order = hex_df.index.tolist()
 
     df_crimes = df_crimes.loc[:, df_crimes.columns.isin(hex_df.index)]
@@ -135,7 +133,7 @@ def expand_daily_to_3h(df_cov):
     df_cov = df_cov.copy().astype(int)
     df_cov.index = pd.to_datetime(df_cov.index)
 
-    return df_cov.reindex(df_cov.index.repeat(8)).assign( # duplicates each daily row 4 times (once per 6h block)
+    return df_cov.reindex(df_cov.index.repeat(8)).assign( # duplicates each daily row 8 times (once per 3h block)
             datetime=lambda x: np.repeat(df_cov.index, 8)+ pd.to_timedelta(np.tile([0,3,6,9,12,15,18,21], len(df_cov)), unit="h")
         ).set_index("datetime")
 
@@ -283,16 +281,14 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
             print(model2.summary())
 
             # get original coefficients for bootstrap
-            original_coefs = model2.coef() #.to_dict()
+            original_coefs = model2.coef() 
 
-            # paralellized bootstrap
+            # parallelized bootstrap
             print("Running PARALLELIZED 2-stage cluster bootstrap...")
             boot_se, boot_p_v2, ci = full_2stage_cluster_bootstrap(
                 df=df,
                 formula1_lag0=formula1_lag0,
-                #formula1_lag1=formula1_lag1,
                 formula1_Wlag0=formula1_Wlag0,
-                #formula1_Wlag1=formula1_Wlag1,
                 formula_Wcrime=formula_Wcrime,
                 formula2=formula2,
                 original_coefs=original_coefs,

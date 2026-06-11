@@ -25,8 +25,10 @@ The relationship between ambient population and crime has long been studied, wit
   - `<city>_mobility_hex.csv`:
   - `<city>_sociodem_hex.csv`:
 - hexagons_list:
+  - `get_final_hex_list.py`:
   - `<city>_hex_list.csv`:
 - W_matrix:
+  - `make_W_matrix.py`:
   - `<city>_W_matrix.npy`:
 
 ### Models

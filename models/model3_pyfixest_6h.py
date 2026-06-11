@@ -11,7 +11,7 @@ def load_city_data(city_folder, crime_types):
     # load footfall data
     df_footfall = pd.read_csv(f"../preprocessing/mobility_data/final_data/{city_folder}_mobility_footfall_hex.csv",index_col=0)
 
-    # Load and merge all crime types for the city
+    # load and merge all crime types for the city
     dfs = []
     for crime in crime_types:
         df_crime = pd.read_csv(f"../preprocessing/crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)

@@ -99,7 +99,7 @@ def load_city_data(city_folder, crime_types):
         df_crime = pd.read_csv(f"../preprocessing/crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)
         dfs.append(df_crime)
 
-    df_crimes = sum(dfs)
+    df_crimes = pd.concat(dfs).groupby(level=0).sum()
 
     hex_df = pd.read_csv(f'../preprocessing/hexagons_list/{city_folder}_hex_list.csv', index_col=0)
     original_hex_order = hex_df.index.tolist()

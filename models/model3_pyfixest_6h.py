@@ -205,7 +205,7 @@ generate_regression_results_model3(lags=[0,1,2],
                                         ["Motor Vehicle Theft"],
                                         ["Assault"],
                                         ["Robbery"],
-                                        ["Burglary", "Assault", "Robbery", "Homicide", "Motor Vehicle Theft"]
+                                        ["Burglary", "Assault", "Robbery", "Motor Vehicle Theft"]
                                     ],
                                    covariates=['extra_event','holiday','sport_event'],
                                    footfall_factor = 36000,

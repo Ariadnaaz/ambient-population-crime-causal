@@ -18,7 +18,7 @@ def single_bootstrap_iteration(
 
     # sample clusters with replacement
     sampled_clusters = np.random.choice(clusters, size=len(clusters), replace=True)
-    boot_df = pd.concat([df[df["hex_id"] == c] for c in sampled_clusters], axis=0, ignore_index=True)
+    boot_df = pd.concat([grouped[c] for c in sampled_clusters], axis=0, ignore_index=True)
 
     try:
         model1_lag0 = pf.feols(formula1_lag0, data=boot_df)
@@ -27,13 +27,13 @@ def single_bootstrap_iteration(
         model1_Wlag1 = pf.feols(formula1_Wlag1, data=boot_df)
         model1_Wcrime = pf.feols(formula_Wcrime, data=boot_df)
 
-        boot_df["resid_lag0"] = model1_lag0.resid
-        boot_df["resid_lag1"] = model1_lag1.resid
-        boot_df["resid_Wlag0"] = model1_Wlag0.resid
-        boot_df["resid_Wlag1"] = model1_Wlag1.resid
-        boot_df["Wcrime_resid"] = model1_Wcrime.resid
+        boot_df["footfall_resid_lag0"] = model1_lag0.resid()
+        boot_df["footfall_resid_lag1"] = model1_lag1.resid()
+        boot_df["W_footfall_resid_lag0"] = model1_Wlag0.resid()
+        boot_df["W_footfall_resid_lag1"] = model1_Wlag1.resid()
+        boot_df["Wcrime_resid"] = model1_Wcrime.resid()
 
-        model2 = pf.feols(formula2, data=boot_df)
+        model2 = pf.fepois(formula2, data=boot_df)
 
         coefs = model2.coef().to_dict()
 
@@ -101,7 +101,7 @@ def load_city_data(city_folder, crime_types):
         df_crime = pd.read_csv(f"../preprocessing/crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)
         dfs.append(df_crime)
 
-    df_crimes = sum(dfs)
+    df_crimes = pd.concat(dfs).groupby(level=0).sum()
 
     hex_df = pd.read_csv(f'../preprocessing/hexagons_list/{city_folder}_hex_list.csv', index_col=0)
     original_hex_order = hex_df.index.tolist()
@@ -124,7 +124,7 @@ def make_datetime_index(df):
     df["year"] = df["year"].astype(int)
     df["datetime"] = pd.to_datetime(df["year"].astype(str) + "-01-01") + \
                      pd.to_timedelta(df["hour_of_year"], unit="h")
-    return df.set_index("datetime").drop(columns=["time_key", "hour_of_year", "year"])
+    return (df.drop(columns=["time_key", "hour_of_year", "year"]).groupby("datetime", as_index=True).sum())
 
 
 def expand_daily_to_hourly(df_cov):
@@ -155,9 +155,9 @@ def generate_regression_results_model5(lags, cities, model_name, crime_types, co
 
     for city in cities:
         print(f"\n=== CITY: {city} ===")
-        city_results = []
 
         for crime in crime_types:
+            city_results = []
             print(f"\nDoing CRIME={crime}...")
 
             W = np.load(f"../preprocessing/W_matrix/{city}_W_matrix.npy")
@@ -365,9 +365,8 @@ if __name__ == "__main__":
                         ["Burglary"],
                         ["Motor Vehicle Theft"],
                         ["Assault"],
-                        ["Homicide"],
                         ["Robbery"],
-                        ["Burglary", "Assault", "Robbery", "Homicide", "Motor Vehicle Theft"]
+                        ["Burglary", "Assault", "Robbery", "Motor Vehicle Theft"]
                     ],
         covariates=['extra_event', 'holiday', 'sport_event'],
         footfall_factor=7000,

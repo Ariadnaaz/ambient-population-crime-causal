@@ -193,7 +193,7 @@ generate_regression_results_model1(lags=[0],
                                         ["Motor Vehicle Theft"],
                                         ["Assault"],
                                         ["Robbery"],
-                                        ["Burglary", "Assault", "Robbery", "Homicide", "Motor Vehicle Theft"]
+                                        ["Burglary", "Assault", "Robbery", "Motor Vehicle Theft"]
                                     ],
                                    footfall_factor = 36000,
                                    model_type= "NB"

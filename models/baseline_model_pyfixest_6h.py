@@ -20,7 +20,7 @@ def load_city_data(city_folder, crime_types):
         df_crime = pd.read_csv(f"../preprocessing/crime_data/{city_folder}_{crime}_all_final_hex.csv", index_col=0)
         dfs.append(df_crime)
 
-    df_crimes = sum(dfs)  # merge all crimes
+    df_crimes = pd.concat(dfs).groupby(level=0).sum()  # merge all crimes
 
     # load hex list
     hex_df = pd.read_csv(f'../preprocessing/hexagons_list/{city_folder}_hex_list.csv',index_col=0)
@@ -192,7 +192,6 @@ generate_regression_results_model1(lags=[0],
                                         ["Burglary"],
                                         ["Motor Vehicle Theft"],
                                         ["Assault"],
-                                        ["Homicide"],
                                         ["Robbery"],
                                         ["Burglary", "Assault", "Robbery", "Homicide", "Motor Vehicle Theft"]
                                     ],

@@ -47,15 +47,15 @@ def generate_crime_files_with_grid_num(city_name,city_folder,crimes_list):
 
 generate_crime_files_with_grid_num(city_name = 'Baltimore',
                                    city_folder = 'Baltimore',
-                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery', 'Homicide']) #
+                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery']) #
 
 generate_crime_files_with_grid_num(city_name = 'Chicago',
                                    city_folder = 'Chicago',
-                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery', 'Homicide']) #
+                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery']) #
 
 generate_crime_files_with_grid_num(city_name = 'Philadelphia',
                                    city_folder = 'Philadelphia',
-                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery', 'Homicide']) #
+                                   crimes_list = ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery']) #
 
 """### 2. Generate yearly matrix of crime counts per hour"""
 
@@ -168,7 +168,7 @@ def make_final_grid_city_crime(city_folder,crime,years):
   print("File saved!\n")
 
 for city in ['Baltimore','Chicago','Philadelphia']:
-    for crime in ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery', 'Homicide']:
+    for crime in ['Burglary', 'Motor Vehicle Theft','Assault', 'Robbery']:
         make_final_grid_city_crime(city_folder=city,
                             crime=crime,
                             years=[2023,2024,2025])
